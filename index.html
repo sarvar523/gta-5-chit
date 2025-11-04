@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GTA5 — Telefon Cheatlar (Asosiy + 1000 ta)</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#071026;color:#e6eef8;margin:0;padding:20px}
+    .wrap{max-width:1000px;margin:0 auto}
+    h1{margin:0 0 12px;font-size:22px;}
+    h2{color:#90cdf4;margin:20px 0 10px;font-size:18px}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:200px;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:inherit}
+    button{padding:8px 10px;border-radius:6px;border:none;cursor:pointer;background:#c5c4c2;color:#041018;font-weight:600}
+    .list{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+    .item{padding:10px;border-radius:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;border:1px solid rgba(255,255,255,0.03)}
+    .item.main{background:#9e7909;color:#71787d;border:2px solid }
+    .item.extra{background:rgba(255,255,255,0.05)}
+    .meta{max-width:72%}
+    .name{font-weight:700;margin-bottom:4px}
+    .item.main .name{color:#661f98}
+    .desc{font-size:13px;color:#bfcbe0;margin-bottom:6px}
+    .phone{font-family:monospace;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;display:inline-block}
+    .actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+    .copy{background:#2563eb; color:white; border-radius:6px;padding:6px 8px;border:none;cursor:pointer}
+    .code{font-family:monospace;color:#cfefff;font-size:13px}
+    .note{margin-top:12px;color:#9aa4b2;font-size:13px}
+    @media(min-width:860px){.list{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>📱 GTA V — Asosiy telefon cheatlar (belgilangan) + 1000 ta qo‘shimcha</h1>
+
+    <div class="controls">
+      <input id="q" type="search" placeholder="Qidiruv: nom, kod yoki raqam" />
+      <button id="showAll">Hammasini ko‘rsat</button>
+      <button id="copyPhones">Barcha telefonlarni nusxalash</button>
+    </div>
+
+    <h2>🔥 Asosiy GTA V telefon kodlari (belgilangan)</h2>
+    <div id="mainList" class="list" aria-live="polite"></div>
+
+    <h2>📋 Qo‘shimcha 1000 ta cheatlar (generatsiya qilingan)</h2>
+    <div id="list" class="list" aria-live="polite"></div>
+  </div>
+
+  <script>
+    // Asosiy cheatlar
+    
+   const mainCheats = [
+  {name:'Invincibility', phone:'1-999-724-654-5537', code:'PAINKILLER', desc:'5 daqiqa invincibility'},
+  {name:'Max Health & Armour', phone:'1-999-887-853', code:'TURTLE', desc:'To\'liq sog\'liq va zirh'},
+  {name:'Fast Run', phone:'1-999-228-8463', code:'CATCHME', desc:'Tez yugurish'},
+  {name:'Super Jump', phone:'1-999-467-8648', code:'HOPTOIT', desc:'Yuqori sakrash'},
+  {name:'Skyfall', phone:'1-999-759-3255', code:'SKYFALL', desc:'Osmondan tushish'},
+  {name:'Buzzard Helicopter', phone:'1-999-289-9633', code:'BUZZOFF', desc:'Buzzard helikopterini chaqirish'},
+  {name:'Comet Car', phone:'1-999-266-38', code:'COMET', desc:'Comet sport mashinasi'},
+  {name:'Vinewood / Stretch Limo', phone:'1-999-846-39663', code:'VINEWOOD', desc:'Stretch Limo chaqirish'},
+  {name:'Snow Day (Qor)', phone:'1-999-766-9329', code:'SNOWDAY', desc:'Transport sirpanadi, qor yog‘adi'}
+];
+
+
+    // Qo‘shimcha 1000 ta cheat
+    function fmtPhone(i){const a=String(100+(i%900)).slice(1); const b=String(1000+((i*37)%9000)).slice(1); return `1-999-${a}-${b}`;}
+    const cheats=[]; const categories=['Gameplay','Weapons','Movement','Vehicle','Aircraft','World','Police','Fun','Secret','Upgrade'];
+    const verbs=['Invincibility','Health & Armour','Super Punch','Fast Run','Super Jump','Explosive Bullets','Incendiary Bullets','Give Weapons','Parachute','Skyfall','Buzzard','Comet','Rapid GT','BMX','PCJ-600','Duster','Trashmaster','Stunt Plane','Change Weather','Drunk Mode','Vinewood','Stretch Limo','Turbo Boost','Silent Mode'];
+
+    for(let i=1;i<=1000;i++){
+      const cat=categories[(i-1)%categories.length]; const verb=verbs[(i-1)%verbs.length];
+      cheats.push({id:i,name:`${verb} — Cheat #${i}`, code:`CODE${String(i).padStart(4,'0')}`, phone:fmtPhone(i), desc:`${cat}: ${verb} (element #${i})`, category:cat});
+    }
+
+    const mainListEl=document.getElementById('mainList'); const listEl=document.getElementById('list'); const q=document.getElementById('q'); const showAllBtn=document.getElementById('showAll'); const copyPhonesBtn=document.getElementById('copyPhones');
+
+    function makeItemElement(it,isMain){
+      const el=document.createElement('div'); el.className='item '+(isMain?'main':'extra');
+      const meta=document.createElement('div'); meta.className='meta';
+      const name=document.createElement('div'); name.className='name'; name.textContent=it.name;
+      const desc=document.createElement('div'); desc.className='desc'; desc.textContent=it.desc;
+      const code=document.createElement('div'); code.className='code'; code.textContent=it.code||'';
+      meta.appendChild(name); meta.appendChild(desc); meta.appendChild(code);
+      const right=document.createElement('div'); right.className='actions';
+      const phone=document.createElement('div'); phone.className='phone'; phone.textContent=it.phone||'';
+      const copy=document.createElement('button'); copy.className='copy'; copy.textContent='Nusxa';
+      copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(it.phone||''); copy.textContent='Nusxa olindi'; setTimeout(()=>copy.textContent='Nusxa',1200);}catch(e){copy.textContent='Xato'; setTimeout(()=>copy.textContent='Nusxa',1200);}});
+      right.appendChild(phone); right.appendChild(copy); el.appendChild(meta); el.appendChild(right); return el;
+    }
+
+    function render(target, items,isMain){target.innerHTML=''; const frag=document.createDocumentFragment(); items.forEach(it=>frag.appendChild(makeItemElement(it,isMain))); target.appendChild(frag);}
+
+    render(mainListEl,mainCheats,true); render(listEl,cheats,false);
+
+    q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase(); if(!v){render(mainListEl,mainCheats,true); render(listEl,cheats,false); return;} const fMain=mainCheats.filter(c=>(c.name&&c.name.toLowerCase().includes(v))||(c.code&&c.code.toLowerCase().includes(v))||(c.phone&&c.phone.includes(v))||(c.desc&&c.desc.toLowerCase().includes(v))); const fExtra=cheats.filter(c=>(c.name&&c.name.toLowerCase().includes(v))||(c.code&&c.code.toLowerCase().includes(v))||(c.phone&&c.phone.includes(v))||(c.desc&&c.desc.toLowerCase().includes(v))); render(mainListEl,fMain,true); render(listEl,fExtra,false);});
+
+    showAllBtn.addEventListener('click',()=>{q.value=''; render(mainListEl,mainCheats,true); render(listEl,cheats,false);});
+
+    copyPhonesBtn.addEventListener('click',async()=>{const allPhones=[...mainCheats,...cheats].map(c=>c.phone||'').filter(Boolean).join('\n'); try{await navigator.clipboard.writeText(allPhones); alert('Barcha telefon raqamlari nusxalandi (clipboard).');}catch(e){const w=window.open('','_blank','width=700,height=600'); const ta=w.document.createElement('textarea'); ta.style.width='100%'; ta.style.height='100%'; ta.value=allPhones; w.document.body.style.margin='0'; w.document.body.appendChild(ta); ta.select();}});
+  </script>
+</body>
+</html>
